@@ -4,21 +4,51 @@
     box-sizing: border-box;
 }
 
+
+
 body {
-    background-image: linear-gradient(120deg, #e2c35d, #d88771);
+    background: #ff8052;
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
 
 }
 
-header{
-    font-size: 1.5rem;
+h1 {
+    margin: 10px;
 }
 
-header,form{
+header {
+    font-size: 1.3rem;
+}
+
+header,
+form {
     min-height: 20vh;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
 
+}
+
+form input,
+form button {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border: none;
+    background: white;
+
+}
+
+form,
+button {
+    color: #ff8052;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form,
+button:hover {
+    background: #ff8052;
+    color: white;
 }
