@@ -72,6 +72,7 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.5s ease;
 
 }
 
@@ -83,7 +84,7 @@ button:hover {
 
 .trash-btn,
 .complete-btn {
-    background: #ff6f47;
+    background: #ffaf98;
     color: white;
     border: none;
     padding: 1rem;
@@ -94,4 +95,24 @@ button:hover {
 
 .complete-btn {
     background: green;
+}
+
+.todo-item {
+    padding: 0rem 0.5rem;
+}
+
+.fa-trash,
+.fa-check {
+    /* you cannnot click on this class elements */
+    pointer-events: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
 }

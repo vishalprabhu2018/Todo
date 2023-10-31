@@ -4,21 +4,22 @@ const todoButton=document.querySelector('.todo-button');
 const todoList=document.querySelector('.todo-list');
 
 //event listerner
-todoButton.addEventListener('click',addTodo)
+todoButton.addEventListener('click',addTodo);
+todoList.addEventListener('click',deleteCheck);
 
 //functions
 
 function addTodo(event){
-   //prevent form from submitting   
+   //after submitting the page always refreshes so to prevent this we uses this below function
     event.preventDefault();
   
     //todo div
     const todoDiv=document.createElement('div');
       todoDiv.classList.add('todo');
 
-    //Create LI
+    //Create li
     const newTodo=document.createElement('li');
-    newTodo.innerText='hey';
+    newTodo.innerText=todoInput.value;
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
      
@@ -35,4 +36,27 @@ function addTodo(event){
 
     //APPEND TO THE lIST
    todoList.appendChild(todoDiv);
+
+   //Clear  todo input value
+   todoInput.value='';
+}
+
+function deleteCheck(e){
+    const item=e.target;
+
+    //DELETE TODO
+    if (item.classList[0]==='trash-btn'){
+        const todo=item.parentElement;
+        //Animation
+        todo.classList.add('fall');  //to create an class for transition
+        todo.addEventListener('transitionend',function(){
+            todo.remove();  //it will wait until the animation is finished and then remove it.
+        });
+     }
+
+     //CheckMark
+     if (item.classList[0]==='complete-btn'){
+        const todo=item.parentElement;
+        todo.classList.toggle('completed');
+     }
 }
