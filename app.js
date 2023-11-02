@@ -5,6 +5,7 @@ const todoList=document.querySelector('.todo-list');
 const filterOption=document.querySelector('.filter-todo');
 
 //event listerner
+document.addEventListener('DOMContentLoaded',getTodos)
 todoButton.addEventListener('click',addTodo);
 todoList.addEventListener('click',deleteCheck);
 filterOption.addEventListener('click',filterTodo);
@@ -25,6 +26,9 @@ function addTodo(event){
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
      
+    //Add todo to local storag3e 
+     saveLocalTodos(todoInput.value);
+   
     //Check Mark button
     const completedButton=document.createElement('button');
     completedButton.innerHTML='<i class="fas fa-check"></i>'
@@ -51,6 +55,9 @@ function deleteCheck(e){
         const todo=item.parentElement;
         //Animation
         todo.classList.add('fall');  //to create an class for transition
+        
+        removeLocalTodos(todo);
+        
         todo.addEventListener('transitionend',function(){
             todo.remove();  //it will wait until the animation is finished and then remove it.
         });
@@ -86,11 +93,91 @@ function filterTodo(e){
             }else{
                todo.style.display='none';
             }
-            
+            break;
     
       }
    })
+}
 
 
-     
+function saveLocalTodos(todo){
+   //Check --do I already have things in there?
+   let todos;
+   if(localStorage.getItem('todos')===null){
+      todos=[];
+   }else{
+      todos=JSON.parse(localStorage.getItem('todos'));
+   }
+   todos.push(todo);
+   localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+
+//localStorage.clear();
+
+//To delete todos from localStorage
+function getTodos(){
+   // console.log('hello')
+
+   //Check --do I already have things in there?
+   let todos;
+   if(localStorage.getItem('todos')===null){
+      todos=[];
+   }else{
+      todos=JSON.parse(localStorage.getItem('todos'));
+   }
+
+  todos.forEach(function(todo){
+   const todoDiv=document.createElement('div');
+   todoDiv.classList.add('todo');
+
+ //Create li
+ const newTodo=document.createElement('li');
+
+ //updated
+ newTodo.innerText=todo;
+
+
+ newTodo.classList.add('todo-item');
+ todoDiv.appendChild(newTodo);
+  
+ //Add todo to local storag3e 
+//   saveLocalTodos(todoInput.value);
+
+ //Check Mark button
+ const completedButton=document.createElement('button');
+ completedButton.innerHTML='<i class="fas fa-check"></i>'
+ completedButton.classList.add('complete-btn');
+ todoDiv.appendChild(completedButton);
+
+ const trashButton=document.createElement('button');
+ trashButton.innerHTML='<i class="fas fa-trash"></i>'
+ trashButton.classList.add('trash-btn');
+ todoDiv.appendChild(trashButton);
+
+ //APPEND TO THE lIST
+todoList.appendChild(todoDiv);
+
+  })
+
+}
+
+
+function removeLocalTodos(todo){
+   
+   //Check --do I already have things in there?
+   let todos;
+   if(localStorage.getItem('todos')===null){
+      todos=[];
+   }else{
+      todos=JSON.parse(localStorage.getItem('todos'));
+   }
+
+   // console.log(todo.children[0].innerText);// 1:08:20
+   const todoIndex=todo.children[0].innerText;
+
+   // console.log(todos.indexOf("apple"));
+   todos.splice(todos.indexOf(todoIndex), 1)
+
+   localStorage.setItem('todos',JSON.stringify(todos))
 }
